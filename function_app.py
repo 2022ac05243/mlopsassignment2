@@ -31,8 +31,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 def linear_reggression(req: func.HttpRequest) -> func.HttpResponse:
     try:
         # Load the pre-trained model from file
-        # with open('linear_model.pkl', 'rb') as f:
-        #     model = pickle.load(f)
+        with open('linear_model.pkl', 'rb') as f:
+            model = pickle.load(f)
         # Parse the input data from the request body
         req_body = req.get_json()
         data = req_body.get('data')
@@ -44,11 +44,11 @@ def linear_reggression(req: func.HttpRequest) -> func.HttpResponse:
         input_data = np.array(data).reshape(-1, 1)
         
         # Make prediction
-        # prediction = model.predict(input_data)
+        prediction = model.predict(input_data)
 
         return func.HttpResponse(
-            # json.dumps({'prediction': prediction.tolist()}),
-            json.dumps({'prediction': 'results'}),
+            json.dumps({'prediction': prediction.tolist()}),
+            # json.dumps({'prediction': 'results'}),
             mimetype="application/json"
         )
     except Exception as e:
