@@ -42,4 +42,4 @@ jobs:
 
     - name: Publish to Azure Functions
       run: |
-        func azure functionapp publish mlopsassigment2
+        func azure functionapp publish mlopsassigment2 --python
