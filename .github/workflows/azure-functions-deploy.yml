@@ -3,7 +3,7 @@ name: Deploy Azure Function
 on:
   push:
     branches:
-      - main  # Adjust this to your branch if needed
+      - main  # Adjust to your branch if needed
 
 jobs:
   deploy:
@@ -21,11 +21,20 @@ jobs:
     - name: Set up Node.js (required for Azure Functions Core Tools)
       uses: actions/setup-node@v2
       with:
-        node-version: '14'  # You can adjust to the Node.js version required
+        node-version: '14'  # Adjust to the Node.js version you need
 
     - name: Install Azure Functions Core Tools
       run: |
         npm install -g azure-functions-core-tools@4 --unsafe-perm true
+
+    - name: Install Azure CLI
+      run: |
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Install dependencies
       run: |
@@ -34,5 +43,3 @@ jobs:
     - name: Publish to Azure Functions
       run: |
         func azure functionapp publish mlopsassigment2
-      env:
-        AZURE_FUNCTIONAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
