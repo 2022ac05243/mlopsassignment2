@@ -4,4 +4,6 @@
 
 azure-functions
 azureml-core
+numpy
+scikit-learn
 
