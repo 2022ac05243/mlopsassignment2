@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.x" # Adjust this to the Python version you're using
+          python-version: "3.11" # Adjust this to the Python version you're using
 
       - name: Set up Node.js (required for Azure Functions Core Tools)
         uses: actions/setup-node@v2
