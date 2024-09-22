@@ -72,40 +72,40 @@ def diabatic_model(req: func.HttpRequest) -> func.HttpResponse:
         if data is None:
             return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
 
-        # feature_names = ['pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'diabetes_pedigree_function', 'age']
+        feature_names = ['pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'diabetes_pedigree_function', 'age']
     
-        # # Extract features from the request data
-        # features = {
-        #     'pregnancies': [data['pregnancies']],
-        #     'glucose': [data['glucose']],
-        #     'blood_pressure': [data['blood_pressure']],
-        #     'skin_thickness': [data['skin_thickness']],
-        #     'insulin': [data['insulin']],
-        #     'bmi': [data['bmi']],
-        #     'diabetes_pedigree_function': [data['diabetes_pedigree_function']],
-        #     'age': [data['age']]
-        # }
+        # Extract features from the request data
+        features = {
+            'pregnancies': [data['pregnancies']],
+            'glucose': [data['glucose']],
+            'blood_pressure': [data['blood_pressure']],
+            'skin_thickness': [data['skin_thickness']],
+            'insulin': [data['insulin']],
+            'bmi': [data['bmi']],
+            'diabetes_pedigree_function': [data['diabetes_pedigree_function']],
+            'age': [data['age']]
+        }
 
-        # # Convert features to a DataFrame and apply scaling
-        # features_df = pd.DataFrame(features, columns=feature_names)
-        # features_scaled = scaler.transform(features_df)
+        # Convert features to a DataFrame and apply scaling
+        features_df = pd.DataFrame(features, columns=feature_names)
+        features_scaled = scaler.transform(features_df)
 
-        # prediction = model.predict(features_scaled)[0]
-        # result = 'Diabetes' if prediction == 1 else 'No Diabetes'
+        prediction = model.predict(features_scaled)[0]
+        result = 'Diabetes' if prediction == 1 else 'No Diabetes'
 
-        # response = {
-        #     'prediction': result,
-        # }
+        response = {
+            'prediction': result,
+        }
 
-        # # return jsonify({'prediction': result, 'ok': 'true'})
-        # return func.HttpResponse(
-        #         json.dumps(response),
-        #         mimetype="application/json"
-        #     )
+        # return jsonify({'prediction': result, 'ok': 'true'})
         return func.HttpResponse(
-                json.dumps('hello'),
+                json.dumps(response),
                 mimetype="application/json"
             )
+        # return func.HttpResponse(
+        #         json.dumps('hello'),
+        #         mimetype="application/json"
+        #     )
 
     except Exception as e:
         logging.error(f"Error occurred: {e}")
