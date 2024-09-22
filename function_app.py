@@ -59,18 +59,18 @@ def linear_reggression(req: func.HttpRequest) -> func.HttpResponse:
 @app.route(route="diabatic_model")
 def diabatic_model(req: func.HttpRequest) -> func.HttpResponse:
     try:
-        # # Load the pre-trained model from file
-        # with open('diabetes_model.pkl', 'rb') as f:
-        #     model = pickle.load(f)
-        # with open('diabetes_scaler.pkl', 'rb') as f:
-        #     scaler = pickle.load(f)
-        # # Parse the input data from the request body
-        # req_body = req.get_json()
-        # data = req_body.get('data')
+        # Load the pre-trained model from file
+        with open('diabetes_model.pkl', 'rb') as f:
+            model = pickle.load(f)
+        with open('diabetes_scaler.pkl', 'rb') as f:
+            scaler = pickle.load(f)
+        # Parse the input data from the request body
+        req_body = req.get_json()
+        data = req_body.get('data')
         
 
-        # if data is None:
-        #     return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
+        if data is None:
+            return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
 
         # feature_names = ['pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'diabetes_pedigree_function', 'age']
     
