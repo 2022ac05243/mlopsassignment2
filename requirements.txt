@@ -4,7 +4,6 @@
 
 azure-functions
 azureml-core
-numpy
-scikit-learn
-pandas
-
+scikit-learn==1.3.0
+pandas==2.0.3
+numpy==1.25.2
