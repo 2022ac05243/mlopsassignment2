@@ -4,7 +4,7 @@ import json
 import pickle
 import numpy as np
 import time
-from sklearn.metrics import r2_score, mean_squared_error
+import pandas as pd
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.FUNCTION)
 
@@ -56,48 +56,52 @@ def linear_reggression(req: func.HttpRequest) -> func.HttpResponse:
         logging.error(f"Error occurred: {e}")
         return func.HttpResponse(f"Error occurred: {e}", status_code=500)
 
-@app.route(route="liner_reggression_with_metric")
-def liner_reggression_with_metric(req: func.HttpRequest) -> func.HttpResponse:
+@app.route(route="diabatic_model")
+def diabatic_model(req: func.HttpRequest) -> func.HttpResponse:
     try:
         # Load the pre-trained model from file
-        with open('linear_model.pkl', 'rb') as f:
+        with open('diabetes_model.pkl', 'rb') as f:
             model = pickle.load(f)
-
+        with open('diabetes_scaler.pkl', 'rb') as f:
+            scaler = pickle.load(f)
         # Parse the input data from the request body
         req_body = req.get_json()
         data = req_body.get('data')
-        actual_values = req_body.get('actual_values', None)  # Actual values for performance metrics (optional)
+        
 
         if data is None:
             return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
 
-        # Convert input to numpy array for model prediction
-        input_data = np.array(data).reshape(-1, 1)
-        
-        # Measure prediction time
-        start_time = time.time()
-        prediction = model.predict(input_data)
-        end_time = time.time()
-        execution_time = end_time - start_time
-        
-        # Prepare the response
-        response = {
-            'prediction': prediction.tolist(),
-            'execution_time': execution_time
+        feature_names = ['pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'diabetes_pedigree_function', 'age']
+    
+        # Extract features from the request data
+        features = {
+            'pregnancies': [data['pregnancies']],
+            'glucose': [data['glucose']],
+            'blood_pressure': [data['blood_pressure']],
+            'skin_thickness': [data['skin_thickness']],
+            'insulin': [data['insulin']],
+            'bmi': [data['bmi']],
+            'diabetes_pedigree_function': [data['diabetes_pedigree_function']],
+            'age': [data['age']]
         }
 
-        # Calculate performance metrics if actual values are provided
-        if actual_values is not None:
-            actual_values = np.array(actual_values).reshape(-1, 1)
-            r2 = r2_score(actual_values, prediction)
-            mse = mean_squared_error(actual_values, prediction)
-            response['r2_score'] = r2
-            response['mean_squared_error'] = mse
+        # Convert features to a DataFrame and apply scaling
+        features_df = pd.DataFrame(features, columns=feature_names)
+        features_scaled = scaler.transform(features_df)
 
+        prediction = model.predict(features_scaled)[0]
+        result = 'Diabetes' if prediction == 1 else 'No Diabetes'
+
+        response = {
+            'prediction': result,
+        }
+
+        # return jsonify({'prediction': result, 'ok': 'true'})
         return func.HttpResponse(
-            json.dumps(response),
-            mimetype="application/json"
-        )
+                json.dumps(response),
+                mimetype="application/json"
+            )
 
     except Exception as e:
         logging.error(f"Error occurred: {e}")
