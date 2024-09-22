@@ -59,47 +59,51 @@ def linear_reggression(req: func.HttpRequest) -> func.HttpResponse:
 @app.route(route="diabatic_model")
 def diabatic_model(req: func.HttpRequest) -> func.HttpResponse:
     try:
-        # Load the pre-trained model from file
-        with open('diabetes_model.pkl', 'rb') as f:
-            model = pickle.load(f)
-        with open('diabetes_scaler.pkl', 'rb') as f:
-            scaler = pickle.load(f)
-        # Parse the input data from the request body
-        req_body = req.get_json()
-        data = req_body.get('data')
+        # # Load the pre-trained model from file
+        # with open('diabetes_model.pkl', 'rb') as f:
+        #     model = pickle.load(f)
+        # with open('diabetes_scaler.pkl', 'rb') as f:
+        #     scaler = pickle.load(f)
+        # # Parse the input data from the request body
+        # req_body = req.get_json()
+        # data = req_body.get('data')
         
 
-        if data is None:
-            return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
+        # if data is None:
+        #     return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
 
-        feature_names = ['pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'diabetes_pedigree_function', 'age']
+        # feature_names = ['pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'diabetes_pedigree_function', 'age']
     
-        # Extract features from the request data
-        features = {
-            'pregnancies': [data['pregnancies']],
-            'glucose': [data['glucose']],
-            'blood_pressure': [data['blood_pressure']],
-            'skin_thickness': [data['skin_thickness']],
-            'insulin': [data['insulin']],
-            'bmi': [data['bmi']],
-            'diabetes_pedigree_function': [data['diabetes_pedigree_function']],
-            'age': [data['age']]
-        }
+        # # Extract features from the request data
+        # features = {
+        #     'pregnancies': [data['pregnancies']],
+        #     'glucose': [data['glucose']],
+        #     'blood_pressure': [data['blood_pressure']],
+        #     'skin_thickness': [data['skin_thickness']],
+        #     'insulin': [data['insulin']],
+        #     'bmi': [data['bmi']],
+        #     'diabetes_pedigree_function': [data['diabetes_pedigree_function']],
+        #     'age': [data['age']]
+        # }
 
-        # Convert features to a DataFrame and apply scaling
-        features_df = pd.DataFrame(features, columns=feature_names)
-        features_scaled = scaler.transform(features_df)
+        # # Convert features to a DataFrame and apply scaling
+        # features_df = pd.DataFrame(features, columns=feature_names)
+        # features_scaled = scaler.transform(features_df)
 
-        prediction = model.predict(features_scaled)[0]
-        result = 'Diabetes' if prediction == 1 else 'No Diabetes'
+        # prediction = model.predict(features_scaled)[0]
+        # result = 'Diabetes' if prediction == 1 else 'No Diabetes'
 
-        response = {
-            'prediction': result,
-        }
+        # response = {
+        #     'prediction': result,
+        # }
 
-        # return jsonify({'prediction': result, 'ok': 'true'})
+        # # return jsonify({'prediction': result, 'ok': 'true'})
+        # return func.HttpResponse(
+        #         json.dumps(response),
+        #         mimetype="application/json"
+        #     )
         return func.HttpResponse(
-                json.dumps(response),
+                json.dumps('hello'),
                 mimetype="application/json"
             )
 
