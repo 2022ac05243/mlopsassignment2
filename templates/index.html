@@ -160,7 +160,7 @@
       >
         Diabetes Prediction
       </h1>
-      <form id="predictionForm" action="/predict" method="POST">
+      <form id="predictionForm" method="POST">
         <div class="form-grid">
           <div class="input-group">
             <input
@@ -248,7 +248,7 @@
       <div id="result" class="result"></div>
     </div>
 
-    <!-- <script>
+    <script>
       document
         .getElementById("predictionForm")
         .addEventListener("submit", async (e) => {
@@ -268,32 +268,32 @@
             ),
             age: parseInt(data.age),
           };
-
+          console.log('Form Data:', JSON.stringify(apiData));
           try {
-            const response = await fetch(
-              "https://mlopsassigment2.azurewebsites.net/api/diabatic_model?code=ApY_47QZjGvYh4a0nwZ0nHd49YILiSxjZKpoDNlmQ2FBAzFuJkJQfQ%3D%3D",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(apiData),
-              }
-            );
+            // const response = await fetch(
+            //   "https://mlopsassigment2.azurewebsites.net/api/diabatic_model?code=ApY_47QZjGvYh4a0nwZ0nHd49YILiSxjZKpoDNlmQ2FBAzFuJkJQfQ%3D%3D",
+            //   {
+            //     method: "POST",
+            //     headers: {
+            //       "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(apiData),
+            //   }
+            // );
 
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
+            // if (!response.ok) {
+            //   throw new Error("Network response was not ok");
+            // }
 
-            const result = await response.json();
-            const resultElement = document.getElementById("result");
-            resultElement.textContent = `Prediction: ${result.prediction}`;
-            resultElement.classList.remove("text-red-600", "text-green-600");
-            resultElement.classList.add(
-              result.prediction === "Positive"
-                ? "text-red-600"
-                : "text-green-600"
-            );
+            // const result = await response.json();
+            // const resultElement = document.getElementById("result");
+            // resultElement.textContent = `Prediction: ${result.prediction}`;
+            // resultElement.classList.remove("text-red-600", "text-green-600");
+            // resultElement.classList.add(
+            //   result.prediction === "Positive"
+            //     ? "text-red-600"
+            //     : "text-green-600"
+            // );
             resultElement.classList.add("show");
           } catch (error) {
             console.error("Error:", error);
@@ -303,6 +303,6 @@
             resultElement.classList.add("text-red-600", "show");
           }
         });
-    </script> -->
+    </script>
   </body>
 </html>
