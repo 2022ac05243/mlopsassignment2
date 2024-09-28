@@ -46,6 +46,22 @@ jobs:
           python -m pip install --upgrade pip setuptools
           python -m pip install -r requirements.txt
 
+      - name: Archive the Flask app
+        run: |
+          mkdir -p front-end-app
+          cp -r main.py templates/ front-end-app/
+          zip -r front-end-app.zip front-end-app
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'mlopsassigment2fe'  # Replace with your Azure App Service name
+          package: ./front-end-app.zip
+
+      - name: Clean up
+        run: |
+          rm -rf front-end-app front-end-app.zip
+
       - name: Publish to Azure Functions
         run: |
           func azure functionapp publish mlopsassigment2 --python
