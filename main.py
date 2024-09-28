@@ -35,8 +35,9 @@ def home():
   
 #     return jsonify({'prediction': result, 'ok': 'true'})
 
-@app.route('/predict', methods=['POST', 'OPTIONS'])
+@app.route('/predict', methods=['POST'])
 def predict():
+    print('thanks for click')
     # Get the incoming data from the request
     data = request.get_json(force=True)
     
