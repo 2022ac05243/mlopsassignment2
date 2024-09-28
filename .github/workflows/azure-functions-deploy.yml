@@ -3,7 +3,7 @@ name: Deploy Azure Function
 on:
   push:
     branches:
-      - main # Adjust to your branch if needed
+      - main
 
 jobs:
   deploy:
@@ -55,13 +55,13 @@ jobs:
       - name: Deploy to Azure App Service
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'mlopsassigment2fe'  # Replace with your Azure App Service name
+          app-name: "mlopsassigment2fe"
           package: ./front-end-app.zip
 
       - name: Clean up
         run: |
           rm -rf front-end-app front-end-app.zip
 
-      # - name: Publish to Azure Functions
-      #   run: |
-      #     func azure functionapp publish mlopsassigment2 --python
+      - name: Publish to Azure Functions
+        run: |
+          func azure functionapp publish mlopsassigment2 --python

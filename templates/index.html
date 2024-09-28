@@ -243,7 +243,7 @@
         </div>
         <div class="button-container">
           <button type="submit">Predict</button>
-        </div>       
+        </div>
       </form>
       <div id="result" class="result"></div>
     </div>
@@ -268,7 +268,7 @@
             ),
             age: parseInt(data.age),
           };
-          let output = { "data": apiData };
+          let output = { data: apiData };
           console.log("Form output Data:", JSON.stringify(output));
           try {
             const response = await fetch(
@@ -286,22 +286,22 @@
               throw new Error("Network response was not ok");
             }
 
-            // const result = await response.json();
-            // const resultElement = document.getElementById("result");
-            // resultElement.textContent = `Prediction: ${result.prediction}`;
-            // resultElement.classList.remove("text-red-600", "text-green-600");
-            // resultElement.classList.add(
-            //   result.prediction === "Positive"
-            //     ? "text-red-600"
-            //     : "text-green-600"
-            // );
+            const result = await response.json();
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = `Prediction: ${result.prediction}`;
+            resultElement.classList.remove("text-red-600", "text-green-600");
+            resultElement.classList.add(
+              result.prediction === "Positive"
+                ? "text-red-600"
+                : "text-green-600"
+            );
             resultElement.classList.add("show");
           } catch (error) {
             console.error("Error:", error);
-            // const resultElement = document.getElementById("result");
-            // resultElement.textContent = "Error: Unable to get prediction";
-            // resultElement.classList.remove("text-red-600", "text-green-600");
-            // resultElement.classList.add("text-red-600", "show");
+            const resultElement = document.getElementById("result");
+            resultElement.textContent = "Error: Unable to get prediction";
+            resultElement.classList.remove("text-red-600", "text-green-600");
+            resultElement.classList.add("text-red-600", "show");
           }
         });
     </script>

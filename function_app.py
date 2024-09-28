@@ -28,32 +28,32 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
              status_code=200
         )
 
-@app.route(route="linear_reggression")
-def linear_reggression(req: func.HttpRequest) -> func.HttpResponse:
-    try:
-        # Load the pre-trained model from file
-        with open('linear_model.pkl', 'rb') as f:
-            model = pickle.load(f)
-        # Parse the input data from the request body
-        req_body = req.get_json()
-        data = req_body.get('data')
+# @app.route(route="linear_reggression")
+# def linear_reggression(req: func.HttpRequest) -> func.HttpResponse:
+#     try:
+#         # Load the pre-trained model from file
+#         with open('linear_model.pkl', 'rb') as f:
+#             model = pickle.load(f)
+#         # Parse the input data from the request body
+#         req_body = req.get_json()
+#         data = req_body.get('data')
         
-        if data is None:
-            return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
+#         if data is None:
+#             return func.HttpResponse("Please pass 'data' in the request body", status_code=400)
 
-        # Convert input to numpy array for model prediction
-        input_data = np.array(data).reshape(-1, 1)
+#         # Convert input to numpy array for model prediction
+#         input_data = np.array(data).reshape(-1, 1)
         
-        # Make prediction
-        prediction = model.predict(input_data)
+#         # Make prediction
+#         prediction = model.predict(input_data)
 
-        return func.HttpResponse(
-            json.dumps({'prediction': prediction.tolist()}),
-            mimetype="application/json"
-        )
-    except Exception as e:
-        logging.error(f"Error occurred: {e}")
-        return func.HttpResponse(f"Error occurred: {e}", status_code=500)
+#         return func.HttpResponse(
+#             json.dumps({'prediction': prediction.tolist()}),
+#             mimetype="application/json"
+#         )
+#     except Exception as e:
+#         logging.error(f"Error occurred: {e}")
+#         return func.HttpResponse(f"Error occurred: {e}", status_code=500)
 
 @app.route(route="diabatic_model")
 def diabatic_model(req: func.HttpRequest) -> func.HttpResponse:
