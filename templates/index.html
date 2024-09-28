@@ -270,7 +270,6 @@
           };
           let output = { "data": apiData };
           console.log("Form output Data:", JSON.stringify(output));
-          console.log("Form Data:", JSON.stringify(apiData));
           try {
             const response = await fetch(
               "https://mlopsassigment2.azurewebsites.net/api/diabatic_model?code=ApY_47QZjGvYh4a0nwZ0nHd49YILiSxjZKpoDNlmQ2FBAzFuJkJQfQ%3D%3D",
@@ -279,7 +278,7 @@
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify(apiData),
+                body: JSON.stringify(output),
               }
             );
 
