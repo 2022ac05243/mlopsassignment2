@@ -160,7 +160,7 @@
       >
         Diabetes Prediction
       </h1>
-      <form id="predictionForm">
+      <form id="predictionForm" action="/predict" method="POST"></form>
         <div class="form-grid">
           <div class="input-group">
             <input
@@ -248,7 +248,7 @@
       <div id="result" class="result"></div>
     </div>
 
-    <script>
+    <!-- <script>
       document
         .getElementById("predictionForm")
         .addEventListener("submit", async (e) => {
@@ -303,6 +303,6 @@
             resultElement.classList.add("text-red-600", "show");
           }
         });
-    </script>
+    </script> -->
   </body>
 </html>

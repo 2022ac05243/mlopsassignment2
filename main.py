@@ -1,35 +1,3 @@
-# from flask import Flask, request, jsonify, render_template
-# import pickle
-# import numpy as np
-# import pandas as pd
-# from flask_cors import CORS
-# import json
-# import requests
-
-# app = Flask(__name__)
-# CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
-
-# # Load the serialized model
-# with open('diabetes_model.pkl', 'rb') as f:
-#     model = pickle.load(f)
-# with open('diabetes_scaler.pkl', 'rb') as f:
-#     scaler = pickle.load(f)
-
-# @app.route('/health', methods=['GET'])
-# def health_check():
-#     return jsonify({'status': 'healthy'}), 200
-
-# @app.route('/')
-# def index():
-#     # Render the main index.html page
-#     return render_template('index.html')
-
-
-
-# if __name__ == '__main__':
-#     print("Starting Flask server...")
-#     app.run(host='0.0.0.0', port=5000)
-
 from flask import Flask, render_template, request, jsonify
 
 
@@ -39,7 +7,6 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')  # Your template in the "templates" folder
 
-@app.route('/predict', methods=['POST', 'OPTIONS'])
 # def predict():
 #     data = request.get_json(force=True)
 #     # Print the received values for debugging
@@ -67,6 +34,7 @@ def home():
   
 #     return jsonify({'prediction': result, 'ok': 'true'})
 
+@app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
     data = request.get_json(force=True)
     # Print the received values for debugging
