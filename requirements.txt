@@ -10,4 +10,3 @@ numpy==1.25.2
 flask
 flask-cors
 gunicorn==20.1.0  # Web server for running the app
-# requests
